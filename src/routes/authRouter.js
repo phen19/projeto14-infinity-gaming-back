@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { signUpUser } from "../controllers/authController.js";
 import signUpMiddleware from "../middlewares/signUpMiddleware.js";
 
 
