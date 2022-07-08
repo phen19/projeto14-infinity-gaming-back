@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./src/routes/authRouter.js";
+import productsRouter from "./src/routes/productsRouter.js";
 dotenv.config();
 
 const app = express();
@@ -9,6 +10,7 @@ const app = express();
 app.use(json(), cors());
 
 app.use(authRouter);
+app.use(productsRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`The server is running on port ${process.env.PORT}`);
