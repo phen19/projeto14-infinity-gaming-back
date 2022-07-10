@@ -1,5 +1,8 @@
 import { db } from "../databases/mongodb.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 async function signUpUser(req, res) {
     const signUpUser = req.body;
@@ -23,15 +26,38 @@ async function signUpUser(req, res) {
 
 async function loginUser(req, res) {
     const { email, password } = req.body;
-   
+
     try {
         const user = await db.collection("users").findOne({ email });
 
-        if(user && bcrypt.compareSync(password, user.password)){
-            res.sendStatus(200);
+        if (user && bcrypt.compareSync(password, user.password)) {
+            const token = jwt.sign(
+                {
+                    id: user._id,
+                    name: user.name
+                },
+                process.env.JWT_KEY,
+                {
+                    expiresIn: "1d"
+                }
+            );
+
+
+            await db
+                .collection("userSession")
+                .insertOne({
+                    id: user._id,
+                    name: user.name,
+                    token
+                });
+
+            res.status(200).send({
+                message: "Authentication Success ",
+                token: token
+            });
         }
-        else{
-            res.status(401).send("Authorization Failure");
+        else {
+            res.status(401).send("Authentication Failure");
         }
     } catch (error) {
         console.error(error);
