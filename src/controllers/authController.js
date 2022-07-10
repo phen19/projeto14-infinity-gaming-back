@@ -22,7 +22,21 @@ async function signUpUser(req, res) {
 }
 
 async function loginUser(req, res) {
+    const { email, password } = req.body;
+   
+    try {
+        const user = await db.collection("users").findOne({ email });
 
+        if(user && bcrypt.compareSync(password, user.password)){
+            res.sendStatus(200);
+        }
+        else{
+            res.status(401).send("Authorization Failure");
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Bad Request");
+    }
 }
 
 export { signUpUser, loginUser };
