@@ -9,6 +9,7 @@ export const signUpSchema = joi.object({
 });
 
 export const orderSchema = joi.object({
+    user: joi.required(),
     items: joi.required(),
     payment: joi.required(),
     total: joi.number().required()
