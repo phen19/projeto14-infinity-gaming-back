@@ -12,6 +12,7 @@ export const orderSchema = joi.object({
     user: joi.required(),
     items: joi.required(),
     payment: joi.required(),
+    cardInfo: joi.optional(),
     total: joi.number().required()
 })
 
