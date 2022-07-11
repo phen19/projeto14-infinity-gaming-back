@@ -8,6 +8,14 @@ export const signUpSchema = joi.object({
     confirmPassword: joi.ref('password')
 });
 
+export const orderSchema = joi.object({
+    user: joi.required(),
+    items: joi.required(),
+    payment: joi.required(),
+    cardInfo: joi.optional(),
+    total: joi.number().required()
+})
+
 
 export const loginSchema = joi.object({
     email: joi.string().email().required(),
