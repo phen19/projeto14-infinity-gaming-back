@@ -21,3 +21,9 @@ export const loginSchema = joi.object({
     email: joi.string().email().required(),
     password: joi.string().required()
 });
+
+
+export const bannnerSchema = joi.object({
+    imgURL: joi.string().required(),
+    description: joi.string().required()
+});
