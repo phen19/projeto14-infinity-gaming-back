@@ -8,6 +8,6 @@ const authRouter = Router();
 
 
 authRouter.post("/sign-up", signUpMiddleware, signUpUser);
-authRouter.post("/", loginMiddleware, loginUser);
+authRouter.post("/login", loginMiddleware, loginUser);
 
 export default authRouter;
