@@ -3,11 +3,11 @@ import { db } from "../databases/mongodb.js";
 async function insertOrder(req, res) {
     const request = req.body;
    
-    const teste = await db.collection('orders').insertOne({...request});
-    const teste2= await db.collection('orders').findOne({_id: teste.insertedId})
+    const order = await db.collection('orders').insertOne({...request});
+    const orderInfo= await db.collection('orders').findOne({_id: order.insertedId})
 
 
-    res.send(teste2)
+    res.send(orderInfo)
 }
 
 export { insertOrder };
